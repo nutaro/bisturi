@@ -1,7 +1,7 @@
 from subprocess import call
 from ipaddress import ip_network
 
-ip_range = input("Ip range: ")
+ip_range = input("Ip range: ") #please
 nmap_arguments = input("Nmap arguments:").strip().split(' ')
 print(nmap_arguments)
 
