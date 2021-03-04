@@ -1,21 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        docker {  python:3.9-slim-buster }
+    }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
         stage('Test') {
             steps {
                 echo 'Testing..',
-                python -m unittest bisturi_test.py
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'python -m unittest bisturi_test.py'
             }
         }
     }
