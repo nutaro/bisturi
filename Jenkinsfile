@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'Testing..',
+                echo 'Testing..'
                 sh 'python -m unittest bisturi_test.py'
             }
         }
