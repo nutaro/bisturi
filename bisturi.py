@@ -1,15 +1,16 @@
+import sys
+
 from subprocess import call
 from ipaddress import ip_network
 
-ip_range = input("Ip range: ") #please
-nmap_arguments = input("Nmap arguments:").strip().split(' ')
-print(nmap_arguments)
 
-hosts = [x for x in ip_network(ip_range).hosts()]
+def scan(range_ip: str, nmap: list) -> None:
+    hosts = [x for x in ip_network(range_ip).hosts()]
+    out_buffer = None
+    call(['nmap'] + nmap, stdout=out_buffer)
 
-print(hosts)
 
-out_buffer = None
-value = call(['nmap'] + nmap_arguments, stdout=out_buffer)
-
-print(out_buffer)
+if __name__ == "__main__":
+    ip_range = sys.argv[1]
+    nmap_args = sys.argv[2:]
+    scan(ip_range, nmap_args)

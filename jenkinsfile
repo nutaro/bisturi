@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing..',
+                python -m unittest bisturi_test.py
             }
         }
         stage('Deploy') {
