@@ -1,8 +1,20 @@
+import re
 import sys
 
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from subprocess import call
 from ipaddress import ip_network
+
+
+def clean(range_ip: str) -> None:
+    for ip in ip_network(range_ip).hosts():
+        flag = False
+        with open(f"log/{ip}.log", "r") as ip_file:
+            data = ip_file.read()
+            if re.search("(\(0 hosts up\))", data):
+                flag = True
+        if flag:
+            call(["rm", f"log/{ip}.log"])
 
 
 def orchestrate(range_ip: str, nmap: list, worker: int) -> None:
@@ -24,7 +36,8 @@ def scan(nmap: list, ip_address: str) -> None:
 
 
 if __name__ == "__main__":
-    ip_range = sys.argv[1]
+    range_ip = sys.argv[1]
     workers = int(sys.argv[2])
     nmap_args = sys.argv[3:]
-    orchestrate(ip_range, nmap_args, workers)
+    orchestrate(range_ip, nmap_args, workers)
+    clean(range_ip)
