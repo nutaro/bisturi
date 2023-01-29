@@ -1,5 +1,7 @@
 # bisturi
 
+Uses multiprocessors to scan a range of host simultaneously
+
 This project requires Nmap to run
 
 https://nmap.org/download.html
